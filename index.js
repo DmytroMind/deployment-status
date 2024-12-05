@@ -12,11 +12,22 @@ async function run() {
     const description = core.getInput("description", {required: false});
     const env = core.getInput("environment", {required: false});
     const envUrl = core.getInput("environment-url", {required: false});
+    const inputDeploymentId = core.getInput("deployment-id", { required: false });
+
+    const deploymentId = inputDeploymentId
+      ? parseInt(inputDeploymentId, 10)
+      : context.payload?.deployment?.id;
+
+    if (!deploymentId) {
+      core.error(
+        "Deployment ID is missing. Please provide it as input or ensure the workflow is triggered by a deployment event."
+      );
+    }
 
     const client = new github.getOctokit(token);
     const params = {
       ...context.repo,
-      deployment_id: context.payload.deployment.id,
+      deployment_id: deploymentId,
       state,
       log_url: url,
       target_url: url,
