@@ -33,7 +33,7 @@ jobs:
         node-version: 16
 
     - name: 'deployment pending'
-      uses: 'justacodename/deployment-status@v2'
+      uses: 'minddocdev/deployment-status@v2'
       with:
         state: 'pending'
 
@@ -43,13 +43,13 @@ jobs:
 
     - name: 'deployment success'
       if: success()
-      uses: 'justacodename/deployment-status@v2'
+      uses: 'minddocdev/deployment-status@v2'
       with:
         state: 'success'
 
     - name: 'deployment failure'
       if: failure()
-      uses: 'justacodename/deployment-status@v2'
+      uses: 'minddocdev/deployment-status@v2'
       with:
         state: 'failure'
 ```
